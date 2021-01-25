@@ -5,6 +5,7 @@ USERNAME=admin
 PASSWORD=password
 
 make clean all
+rm -f dataset/*
 ./chBenchmark -csv -wh 1 -pa "${DATASET}"
 
 function couchbase_import {
