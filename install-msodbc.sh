@@ -3,7 +3,3 @@ brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-rel
 brew update
 HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17
 export LD_LIBRARY_PATH=/usr/local/include/
-
-./chBenchmark --help
-mkdir ./dataset
-./chBenchmark -csv -wh 1 -pa ./dataset

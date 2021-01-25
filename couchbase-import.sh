@@ -5,6 +5,7 @@ USERNAME=admin
 PASSWORD=password
 
 make clean all
+mkdir "${DATASET}"
 rm -f "${DATASET}/*"
 ./chBenchmark -csv -wh 1 -pa "${DATASET}"
 
