@@ -16,7 +16,10 @@ function couchbase_import {
   # add column names and type into tab delimited file
   (echo "${columns}|TYPE" && cat "${DATASET}/$type.tbl" | while read line; do echo "${line}|${type}"; done) > "${DATASET}/${type}.couchbase.tbl"
   # import tab delimited file using cbimport
-  cbimport csv --cluster "${CLUSTER}" --username "${USERNAME}" --password "${PASSWORD}" --bucket "${BUCKET}" --field-separator "|" --dataset "file://${DATASET}/${type}.couchbase.tbl" --generate-key "%TYPE%:%${key}%"
+  cbimport csv --cluster "${CLUSTER}" \
+    --username "${USERNAME}" --password "${PASSWORD}" \
+    --bucket "${BUCKET}" --field-separator "|" \
+    --dataset "file://${DATASET}/${type}.couchbase.tbl" --generate-key "%TYPE%:%${key}%"
 }
 
 couchbase_import "CUSTOMER" "C_ID|C_D_ID|C_W_ID|C_FIRST|C_MIDDLE|C_LAST|C_STREET_1|C_STREET_2|C_CITY|C_STATE|C_ZIP|C_PHONE|C_SINCE|C_CREDIT|C_CREDIT_LIM|C_DISCOUNT|C_BALANCE|C_YTD_PAYMENT|C_PAYMENT_CNT|C_DELIVERY_CNT|C_DATA|C_N_NATIONKEY" "C_ID"
