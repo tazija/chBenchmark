@@ -11,10 +11,10 @@ rm -f "${DATASET}/*"
 
 function couchbase_import {
   local type="$1"
-  local columns="$2"
+  local header="$2"
   local key="$3"
-  # add column names and type into tab delimited file
-  (echo "${columns}|TYPE" && cat "${DATASET}/$type.tbl" | while read line; do echo "${line}|${type}"; done) > "${DATASET}/${type}.couchbase.tbl"
+  # add column names and type header into tab delimited file
+  (echo "${header}|TYPE" && cat "${DATASET}/$type.tbl" | while read line; do echo "${line}|${type}"; done) > "${DATASET}/${type}.couchbase.tbl"
   # import tab delimited file using cbimport
   cbimport csv --cluster "${CLUSTER}" \
     --username "${USERNAME}" --password "${PASSWORD}" \
