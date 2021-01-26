@@ -16,22 +16,25 @@ limitations under the License.
 
 #include "AnalyticalStatistic.h"
 
-AnalyticalStatistic::AnalyticalStatistic(){
-	for(int i=0; i<22; i++){
-		executeTPCHSuccessCount[i] = 0;
-		executeTPCHFailCount[i] = 0;
-	}
+AnalyticalStatistic::AnalyticalStatistic()
+{
+    for (int i = 0; i < 22; i++) {
+        executeTPCHSuccessCount[i] = 0;
+        executeTPCHFailCount[i] = 0;
+    }
 }
 
-void AnalyticalStatistic::addResult(unsigned long long& analyticalResults){
-	for(int i=0; i<22; i++){
-		analyticalResults += executeTPCHSuccessCount[i];
-	}
+void AnalyticalStatistic::addResult(unsigned long long &analyticalResults)
+{
+    for (int i = 0; i < 22; i++) {
+        analyticalResults += executeTPCHSuccessCount[i];
+    }
 }
 
-void AnalyticalStatistic::executeTPCHSuccess(int queryNumber, bool success){
-	if(success)
-		executeTPCHSuccessCount[queryNumber-1]++;
-	else
-		executeTPCHFailCount[queryNumber-1]++;
+void AnalyticalStatistic::executeTPCHSuccess(int queryNumber, bool success)
+{
+    if (success)
+        executeTPCHSuccessCount[queryNumber - 1]++;
+    else
+        executeTPCHFailCount[queryNumber - 1]++;
 }

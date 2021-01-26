@@ -20,10 +20,12 @@ extern "C" {
 # define PTHREAD_PROCESS_SHARED     (43)
 #endif
 
-typedef struct {
+typedef struct
+{
 } pthread_barrierattr_t;
 
-typedef struct {
+typedef struct
+{
     pthread_mutex_t mutex;
     pthread_cond_t cond;
     unsigned int limit;

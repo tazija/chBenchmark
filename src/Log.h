@@ -21,41 +21,54 @@ limitations under the License.
 #include <string>
 #include <iostream>
 
-class LogTime{
+class LogTime
+{
 
 };
 
-class Log1{
+class Log1
+{
 
 };
 
-class Log2{
+class Log2
+{
 
 };
 
-class Log{
+class Log
+{
 
-	private:
-		static LogTime lt;
-		static Log1 log1;
-		static Log2 log2;
-		static std::ofstream logStream;
+private:
+    static LogTime lt;
+    static Log1 log1;
+    static Log2 log2;
+    static std::ofstream logStream;
 
-	public:
-		static LogTime& tm();
-		static Log1& l1();
-		static Log2& l2();
-		static std::ofstream* getLogStream();
+public:
+    static LogTime &tm();
+
+    static Log1 &l1();
+
+    static Log2 &l2();
+
+    static std::ofstream *getLogStream();
 };
 
-Log1& operator<<(Log1& l, LogTime& lt);
-Log1& operator<<(Log1& l, const char* c);
-Log1& operator<<(Log1& l, std::string s);
-Log1& operator<<(Log1& l, double d);
+Log1 &operator<<(Log1 &l, LogTime &lt);
 
-Log2& operator<<(Log2& l, LogTime& lt);
-Log2& operator<<(Log2& l,const char* c);
-Log2& operator<<(Log2& l,std::string s);
-Log2& operator<<(Log2& l,double d);
+Log1 &operator<<(Log1 &l, const char *c);
+
+Log1 &operator<<(Log1 &l, std::string s);
+
+Log1 &operator<<(Log1 &l, double d);
+
+Log2 &operator<<(Log2 &l, LogTime &lt);
+
+Log2 &operator<<(Log2 &l, const char *c);
+
+Log2 &operator<<(Log2 &l, std::string s);
+
+Log2 &operator<<(Log2 &l, double d);
 
 #endif

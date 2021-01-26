@@ -16,20 +16,23 @@ limitations under the License.
 
 #include "TransactionalStatistic.h"
 
-TransactionalStatistic::TransactionalStatistic(){
-	for(int i=0; i<5; i++){
-		executeTPCCSuccessCount[i] = 0;
-		executeTPCCFailCount[i] = 0;
-	}
+TransactionalStatistic::TransactionalStatistic()
+{
+    for (int i = 0; i < 5; i++) {
+        executeTPCCSuccessCount[i] = 0;
+        executeTPCCFailCount[i] = 0;
+    }
 }
 
-void TransactionalStatistic::addResult(unsigned long long& transcationalResults){
-	transcationalResults += executeTPCCSuccessCount[0];
+void TransactionalStatistic::addResult(unsigned long long &transcationalResults)
+{
+    transcationalResults += executeTPCCSuccessCount[0];
 }
 
-void TransactionalStatistic::executeTPCCSuccess(int transactionNumber, bool success){
-	if(success)
-		executeTPCCSuccessCount[transactionNumber-1]++;
-	else
-		executeTPCCFailCount[transactionNumber-1]++;
+void TransactionalStatistic::executeTPCCSuccess(int transactionNumber, bool success)
+{
+    if (success)
+        executeTPCCSuccessCount[transactionNumber - 1]++;
+    else
+        executeTPCCFailCount[transactionNumber - 1]++;
 }

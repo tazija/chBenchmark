@@ -13,8 +13,10 @@ function couchbase_import {
   local type="$1"
   local header="$2"
   local key="$3"
-  # add column names and type header into tab delimited file
-  (echo "${header}|TYPE" && cat "${DATASET}/$type.tbl" | while read line; do echo "${line}|${type}"; done) > "${DATASET}/${type}.couchbase.tbl"
+  # create header from column names and type
+  # add header into tab delimited file
+  (echo "${header}|TYPE" && cat "${DATASET}/$type.tbl" | \
+    while read line; do echo "${line}|${type}"; done) > "${DATASET}/${type}.couchbase.tbl"
   # import tab delimited file using cbimport
   cbimport csv --cluster "${CLUSTER}" \
     --username "${USERNAME}" --password "${PASSWORD}" \

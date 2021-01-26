@@ -3,14 +3,15 @@
 
 #include "Dialect.h"
 
-class HanaDialect : public Dialect {
+class HanaDialect : public Dialect
+{
 
 private:
-    std::vector<const char*> dropExistingSchemaStatements = {
+    std::vector<const char *> dropExistingSchemaStatements = {
             "DROP SCHEMA \"TPCCH\" CASCADE"
     };
 
-    std::vector<const char*> createSchemaStatements = {
+    std::vector<const char *> createSchemaStatements = {
             "CREATE SCHEMA \"TPCCH\"",
 
             "CREATE COLUMN TABLE \"TPCCH\".\"WAREHOUSE\" (\n"
@@ -214,7 +215,7 @@ private:
             ") UNLOAD PRIORITY 5"
     };
 
-    std::vector<const char*> additionalPreparationStatements = {
+    std::vector<const char *> additionalPreparationStatements = {
             "load TPCCH.\"WAREHOUSE\" all",
             "merge delta of TPCCH.\"WAREHOUSE\"",
             "load TPCCH.\"DISTRICT\" all",
@@ -241,7 +242,7 @@ private:
             "merge delta of TPCCH.\"REGION\"",
     };
 
-    std::vector<const char*> importPrefixStrings ={
+    std::vector<const char *> importPrefixStrings = {
             "IMPORT FROM CSV FILE '",
             "IMPORT FROM CSV FILE '",
             "IMPORT FROM CSV FILE '",
@@ -256,7 +257,7 @@ private:
             "IMPORT FROM CSV FILE '"
     };
 
-    std::vector<const char*> importSuffixStrings = {
+    std::vector<const char *> importSuffixStrings = {
             "/WAREHOUSE.tbl' INTO TPCCH.\"WAREHOUSE\" WITH RECORD DELIMITED BY '\n' FIELD DELIMITED BY '|' THREADS 10 TABLE LOCK",
             "/DISTRICT.tbl' INTO TPCCH.\"DISTRICT\" WITH RECORD DELIMITED BY '\n' FIELD DELIMITED BY '|' THREADS 10 TABLE LOCK",
             "/CUSTOMER.tbl' INTO TPCCH.\"CUSTOMER\" WITH RECORD DELIMITED BY '\n' FIELD DELIMITED BY '|' THREADS 10 TABLE LOCK",
@@ -271,7 +272,7 @@ private:
             "/REGION.tbl' INTO TPCCH.\"REGION\" WITH RECORD DELIMITED BY '\n' FIELD DELIMITED BY '|' THREADS 10 TABLE LOCK"
     };
 
-    std::vector<const char*> tpchQueryStrings = {
+    std::vector<const char *> tpchQueryStrings = {
             //TPC-H-Query 1
             "select\n"
             "	ol_number,\n"
@@ -784,264 +785,327 @@ private:
 public:
 
     //Strings to create initial database
-    virtual std::vector<const char*>& getDropExistingSchemaStatements(){
+    virtual std::vector<const char *> &getDropExistingSchemaStatements()
+    {
         return dropExistingSchemaStatements;
     }
 
-    virtual std::vector<const char*>& getCreateSchemaStatements(){
+    virtual std::vector<const char *> &getCreateSchemaStatements()
+    {
         return createSchemaStatements;
     }
 
-    virtual std::vector<const char*>& getImportPrefix(){
+    virtual std::vector<const char *> &getImportPrefix()
+    {
         return importPrefixStrings;
     }
 
-    virtual std::vector<const char*>& getImportSuffix(){
+    virtual std::vector<const char *> &getImportSuffix()
+    {
         return importSuffixStrings;
     }
 
 
-    virtual std::vector<const char*>& getAdditionalPreparationStatements(){
+    virtual std::vector<const char *> &getAdditionalPreparationStatements()
+    {
         return additionalPreparationStatements;
     }
 
     //22 adjusted TPC-H OLAP query strings
-    virtual std::vector<const char*>& getTpchQueryStrings(){
+    virtual std::vector<const char *> &getTpchQueryStrings()
+    {
         return tpchQueryStrings;
     }
 
     //Strings for database check
-    virtual const char* getSelectCountWarehouse(){
+    virtual const char *getSelectCountWarehouse()
+    {
         return "select count(*) from TPCCH.WAREHOUSE";
     }
 
-    virtual const char* getSelectCountDistrict(){
+    virtual const char *getSelectCountDistrict()
+    {
         return "select count(*) from TPCCH.DISTRICT";
     }
 
-    virtual const char* getSelectCountCustomer(){
+    virtual const char *getSelectCountCustomer()
+    {
         return "select count(*) from TPCCH.CUSTOMER";
     }
 
-    virtual const char* getSelectCountOrder(){
+    virtual const char *getSelectCountOrder()
+    {
         return "select count(*) from TPCCH.\"ORDER\"";
     }
 
-    virtual const char* getSelectCountOrderline(){
+    virtual const char *getSelectCountOrderline()
+    {
         return "select count(*) from TPCCH.ORDERLINE";
     }
 
-    virtual const char* getSelectCountNeworder(){
+    virtual const char *getSelectCountNeworder()
+    {
         return "select count(*) from TPCCH.NEWORDER";
     }
 
-    virtual const char* getSelectCountHistory(){
+    virtual const char *getSelectCountHistory()
+    {
         return "select count(*) from TPCCH.HISTORY";
     }
 
-    virtual const char* getSelectCountStock(){
+    virtual const char *getSelectCountStock()
+    {
         return "select count(*) from TPCCH.STOCK";
     }
 
-    virtual const char* getSelectCountItem(){
+    virtual const char *getSelectCountItem()
+    {
         return "select count(*) from TPCCH.ITEM";
     }
 
-    virtual const char* getSelectCountSupplier(){
+    virtual const char *getSelectCountSupplier()
+    {
         return "select count(*) from TPCCH.SUPPLIER";
     }
 
-    virtual const char* getSelectCountNation(){
+    virtual const char *getSelectCountNation()
+    {
         return "select count(*) from TPCCH.NATION";
     }
 
-    virtual const char* getSelectCountRegion(){
+    virtual const char *getSelectCountRegion()
+    {
         return "select count(*) from TPCCH.REGION";
     }
 
     //TPC-C transaction strings
     //NewOrder:
-    virtual const char* getNoWarehouseSelect(){
+    virtual const char *getNoWarehouseSelect()
+    {
         return "select W_TAX from TPCCH.WAREHOUSE where W_ID=?";
     }
 
-    virtual const char* getNoDistrictSelect(){
+    virtual const char *getNoDistrictSelect()
+    {
         return "select D_TAX, D_NEXT_O_ID from TPCCH.DISTRICT where D_W_ID=? and D_ID=?";
     }
 
-    virtual const char* getNoDistrictUpdate(){
+    virtual const char *getNoDistrictUpdate()
+    {
         return "update TPCCH.DISTRICT set D_NEXT_O_ID=D_NEXT_O_ID+1 where D_W_ID=? and D_ID=?";
     }
 
-    virtual const char* getNoCustomerSelect(){
+    virtual const char *getNoCustomerSelect()
+    {
         return "select C_DISCOUNT,C_LAST,C_CREDIT from TPCCH.CUSTOMER where C_W_ID=? and C_D_ID=? and C_ID=?";
     }
 
-    virtual const char* getNoOrderInsert(){
+    virtual const char *getNoOrderInsert()
+    {
         return "insert into TPCCH.\"ORDER\" values (?,?,?,?,?,NULL,?,?)";
     }
 
-    virtual const char* getNoNewOrderInsert(){
+    virtual const char *getNoNewOrderInsert()
+    {
         return "insert into TPCCH.NEWORDER values(?,?,?)";
     }
 
-    virtual const char* getNoItemSelect(){
+    virtual const char *getNoItemSelect()
+    {
         return "select I_PRICE,I_NAME,I_DATA from TPCCH.ITEM where I_ID=?";
     }
 
-    virtual const char* getNoStockSelect01(){
+    virtual const char *getNoStockSelect01()
+    {
         return "select S_QUANTITY,S_DIST_01,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect02(){
+    virtual const char *getNoStockSelect02()
+    {
         return "select S_QUANTITY,S_DIST_02,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect03(){
+    virtual const char *getNoStockSelect03()
+    {
         return "select S_QUANTITY,S_DIST_03,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect04(){
+    virtual const char *getNoStockSelect04()
+    {
         return "select S_QUANTITY,S_DIST_04,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect05(){
+    virtual const char *getNoStockSelect05()
+    {
         return "select S_QUANTITY,S_DIST_05,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect06(){
+    virtual const char *getNoStockSelect06()
+    {
         return "select S_QUANTITY,S_DIST_06,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect07(){
+    virtual const char *getNoStockSelect07()
+    {
         return "select S_QUANTITY,S_DIST_07,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect08(){
+    virtual const char *getNoStockSelect08()
+    {
         return "select S_QUANTITY,S_DIST_08,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect09(){
+    virtual const char *getNoStockSelect09()
+    {
         return "select S_QUANTITY,S_DIST_09,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockSelect10(){
+    virtual const char *getNoStockSelect10()
+    {
         return "select S_QUANTITY,S_DIST_10,S_DATA from TPCCH.STOCK where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockUpdate01(){
+    virtual const char *getNoStockUpdate01()
+    {
         return "update TPCCH.STOCK set S_YTD=S_YTD+?, S_ORDER_CNT=S_ORDER_CNT+1, S_QUANTITY=? where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoStockUpdate02(){
+    virtual const char *getNoStockUpdate02()
+    {
         return "update TPCCH.STOCK set S_YTD=S_YTD+?, S_ORDER_CNT=S_ORDER_CNT+1, S_QUANTITY=?, S_REMOTE_CNT=S_REMOTE_CNT+1 where S_I_ID=? and S_W_ID=?";
     }
 
-    virtual const char* getNoOrderlineInsert(){
+    virtual const char *getNoOrderlineInsert()
+    {
         return "insert into TPCCH.ORDERLINE values (?,?,?,?,?,?,NULL,?,?,?)";
     }
 
     //Payment:
-    virtual const char* getPmWarehouseSelect(){
+    virtual const char *getPmWarehouseSelect()
+    {
         return "select W_NAME, W_STREET_1, W_STREET_2, W_CITY, W_STATE, W_ZIP from TPCCH.WAREHOUSE where W_ID=?";
     }
 
-    virtual const char* getPmWarehouseUpdate(){
+    virtual const char *getPmWarehouseUpdate()
+    {
         return "update TPCCH.WAREHOUSE set W_YTD=W_YTD+? where W_ID=?";
     }
 
-    virtual const char* getPmDistrictSelect(){
+    virtual const char *getPmDistrictSelect()
+    {
         return "select D_NAME, D_STREET_1, D_STREET_2, D_CITY, D_STATE, D_ZIP from TPCCH.DISTRICT where D_W_ID=? and D_ID=?";
     }
 
-    virtual const char* getPmDistrictUpdate(){
+    virtual const char *getPmDistrictUpdate()
+    {
         return "update TPCCH.DISTRICT set D_YTD=D_YTD+? where D_W_ID=? and D_ID=?";
     }
 
-    virtual const char* getPmCustomerSelect1(){
+    virtual const char *getPmCustomerSelect1()
+    {
         return "select count(*) from TPCCH.CUSTOMER where C_LAST=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getPmCustomerSelect2(){
+    virtual const char *getPmCustomerSelect2()
+    {
         return "select C_ID, C_FIRST, C_MIDDLE, C_STREET_1, C_STREET_2, C_CITY, C_STATE, C_ZIP, C_PHONE, C_SINCE, C_CREDIT, C_CREDIT_LIM, C_DISCOUNT, C_BALANCE from TPCCH.CUSTOMER where C_LAST=? and C_D_ID=? and C_W_ID=? order by C_FIRST asc";
     }
 
-    virtual const char* getPmCustomerSelect3(){
+    virtual const char *getPmCustomerSelect3()
+    {
         return "select C_FIRST, C_MIDDLE, C_LAST, C_STREET_1, C_STREET_2, C_CITY, C_STATE, C_ZIP, C_PHONE, C_SINCE, C_CREDIT, C_CREDIT_LIM, C_DISCOUNT, C_BALANCE from TPCCH.CUSTOMER where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getPmCustomerUpdate1(){
+    virtual const char *getPmCustomerUpdate1()
+    {
         return "update TPCCH.CUSTOMER set C_BALANCE=C_BALANCE-?, C_YTD_PAYMENT=C_YTD_PAYMENT+?, C_PAYMENT_CNT=C_PAYMENT_CNT+1 where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getPmCustomerSelect4(){
+    virtual const char *getPmCustomerSelect4()
+    {
         return "select C_DATA from TPCCH.CUSTOMER where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getPmCustomerUpdate2(){
+    virtual const char *getPmCustomerUpdate2()
+    {
         return "update TPCCH.CUSTOMER set C_DATA=? where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getPmHistoryInsert(){
+    virtual const char *getPmHistoryInsert()
+    {
         return "insert into TPCCH.History values (?,?,?,?,?,?,?,?)";
     }
 
     //OrderStatus:
-    virtual const char* getOsCustomerSelect1(){
+    virtual const char *getOsCustomerSelect1()
+    {
         return "select count(*) from TPCCH.CUSTOMER where C_LAST=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getOsCustomerSelect2(){
+    virtual const char *getOsCustomerSelect2()
+    {
         return "select C_ID, C_BALANCE, C_FIRST, C_MIDDLE, C_LAST from TPCCH.CUSTOMER where C_LAST=? and C_D_ID=? and C_W_ID=? order by C_FIRST asc";
     }
 
-    virtual const char* getOsCustomerSelect3(){
+    virtual const char *getOsCustomerSelect3()
+    {
         return "select C_BALANCE, C_FIRST, C_MIDDLE, C_LAST from TPCCH.CUSTOMER where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
-    virtual const char* getOsOrderSelect(){
+    virtual const char *getOsOrderSelect()
+    {
         return "select O_ID, O_ENTRY_D, O_CARRIER_ID from TPCCH.\"ORDER\" where O_W_ID=? and O_D_ID=? and O_C_ID=? and O_ID=(select max(O_ID) from TPCCH.\"ORDER\" where O_W_ID=? and O_D_ID=? and O_C_ID=?)";
     }
 
-    virtual const char* getOsOrderlineSelect(){
+    virtual const char *getOsOrderlineSelect()
+    {
         return "select OL_I_ID, OL_SUPPLY_W_ID, OL_QUANTITY, OL_AMOUNT, OL_DELIVERY_D from TPCCH.ORDERLINE where OL_W_ID=? and OL_D_ID=? and OL_O_ID=?";
     }
 
     //Delivery:
-    virtual const char* getDlNewOrderSelect(){
+    virtual const char *getDlNewOrderSelect()
+    {
         return "select NO_O_ID from TPCCH.NEWORDER where NO_W_ID=? and NO_D_ID=? and NO_O_ID=(select min(NO_O_ID) from TPCCH.NEWORDER where NO_W_ID=? and NO_D_ID=?)";
     }
 
-    virtual const char* getDlNewOrderDelete(){
+    virtual const char *getDlNewOrderDelete()
+    {
         return "delete from TPCCH.NEWORDER where NO_W_ID=? and NO_D_ID=? and NO_O_ID=?";
     }
 
-    virtual const char* getDlOrderSelect(){
+    virtual const char *getDlOrderSelect()
+    {
         return "select O_C_ID from TPCCH.\"ORDER\" where O_W_ID=? and O_D_ID=? and O_ID=?";
     }
 
-    virtual const char* getDlOrderUpdate(){
+    virtual const char *getDlOrderUpdate()
+    {
         return "update TPCCH.\"ORDER\" set O_CARRIER_ID=? where O_W_ID=? and O_D_ID=? and O_ID=?";
     }
 
-    virtual const char* getDlOrderlineUpdate(){
+    virtual const char *getDlOrderlineUpdate()
+    {
         return "update TPCCH.ORDERLINE set OL_DELIVERY_D=? where OL_W_ID=? and OL_D_ID=? and OL_O_ID=?";
     }
 
-    virtual const char* getDlOrderlineSelect(){
+    virtual const char *getDlOrderlineSelect()
+    {
         return "select sum(OL_AMOUNT) from TPCCH.ORDERLINE where OL_W_ID=? and OL_D_ID=? and OL_O_ID=?";
     }
 
-    virtual const char* getDlCustomerUpdate(){
+    virtual const char *getDlCustomerUpdate()
+    {
         return "update TPCCH.CUSTOMER set C_BALANCE=C_BALANCE+?, C_DELIVERY_CNT=C_DELIVERY_CNT+1 where C_ID=? and C_D_ID=? and C_W_ID=?";
     }
 
     //StockLevel:
-    virtual const char* getSlDistrictSelect(){
+    virtual const char *getSlDistrictSelect()
+    {
         return "select D_NEXT_O_ID from TPCCH.DISTRICT where D_W_ID=? and D_ID=?";
     }
 
-    virtual const char* getSlStockSelect(){
+    virtual const char *getSlStockSelect()
+    {
         return "select count(*) from TPCCH.STOCK,(select distinct OL_I_ID from TPCCH.ORDERLINE where OL_W_ID=? and OL_D_ID=? and OL_O_ID<? and OL_O_ID>=?) where S_I_ID=OL_I_ID and S_W_ID=? and S_QUANTITY<?";
     }
 

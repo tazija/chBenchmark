@@ -21,6 +21,23 @@ To build it:
 
     2. make
 
+Configure Couchbase ODBC driver:
+    1. Download and install Couchbase ODBC driver https://www.cdata.com/drivers/couchbase/odbc/
+
+    2. Install license key for Couchbase ODBC driver http://cdn.cdata.com/help/CKF/odbc/pg_connectionodbcmac.htm
+    - cd "/Applications/CData ODBC Driver for Couchbase/bin"
+    - sudo ./install-license <key>
+
+    3. Install iODBC Driver Manager for MacOS http://www.iodbc.org/dataspace/doc/iodbc/wiki/iodbcWiki/Downloads#Mac%20OS%20X
+
+    4. Follow CData readme to configure DSN with iODBC Driver Manager:
+    - CData website http://cdn.cdata.com/help/CKF/odbc/pg_connectionodbcmac.htm
+    - local readme "/Applications/CData\ ODBC\ Driver\ for\ Couchbase/Readme.txt"
+
+    You can use GUI sudo /Applications/iODBC/iODBC\ Administrator64.app/Contents/MacOS/iODBC\ Administrator64 or edit
+    /Library/ODBC/odbcinst.ini and /Library/ODBC/odbc.ini manually
+
+    5. Use open /Applications/iODBC/iODBC\ Demo\ Ansi.app to verify configured DSN
 
 To run it:
     1. Make sure all required libraries can be found, for example:
