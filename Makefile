@@ -13,10 +13,10 @@
 #limitations under the License.
 
 CC=g++
-CXXFLAGS=-c -std=c++11 -O2 -Wno-all -Wno-macro-redefined -Wno-extern-c-compat -DCLI_MACRO=1
+CXXFLAGS=-g -c -std=c++17 -O2 -Wno-all -Wno-macro-redefined -Wno-extern-c-compat -Wno-varargs -DCLI_MACRO=1
 LDFLAGS=-lodbc
 
-SOURCES=src/pthread_barrier.cpp src/AnalyticalStatistic.cpp src/TransactionalStatistic.cpp src/dialect/DialectStrategy.cpp src/Config.cpp src/Log.cpp src/DbcTools.cpp src/DataSource.cpp src/TupleGen.cpp src/Schema.cpp src/Queries.cpp src/Transactions.cpp chBenchmark.cpp
+SOURCES=src/Options.cpp src/Context.cpp src/driver/DriverManager.cpp src/driver/OdbcDriver.cpp src/driver/CouchbaseDriver.cpp src/utils/pthread_barrier.cpp src/AnalyticalStatistic.cpp src/TransactionalStatistic.cpp src/dialect/DialectStrategy.cpp src/Config.cpp src/Log.cpp src/DbcTools.cpp src/DataSource.cpp src/CsvGenerator.cpp src/Schema.cpp src/Queries.cpp src/Transactions.cpp chBenchmark.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=chBenchmark
 
@@ -32,4 +32,5 @@ clean:
 	rm -f *.o
 	rm -f src/*.o
 	rm -f src/dialect/*.o
+	rm -f src/driver/*.o
 	rm -f chBenchmark

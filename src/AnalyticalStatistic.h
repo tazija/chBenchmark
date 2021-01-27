@@ -17,20 +17,18 @@ limitations under the License.
 #ifndef ANALYTICALSTATISTIC_H
 #define ANALYTICALSTATISTIC_H
 
-class AnalyticalStatistic
-{
+class AnalyticalStatistic {
 
 private:
-    unsigned long long executeTPCHSuccessCount[22];
-    unsigned long long executeTPCHFailCount[22];
+  unsigned long long executeTPCHSuccessCount[22];
+  unsigned long long executeTPCHFailCount[22];
 
 public:
-    AnalyticalStatistic();
+  AnalyticalStatistic();
 
-    void addResult(unsigned long long &analyticalResults);
+  void addResult(unsigned long long &analyticalResults);
 
-    void executeTPCHSuccess(int queryNumber, bool success);
+  void executeTPCHSuccess(int queryNumber, bool success);
 
 };
-
 #endif

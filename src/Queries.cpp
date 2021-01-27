@@ -22,25 +22,23 @@ limitations under the License.
 
 using namespace std;
 
-bool Queries::prepareStatements(SQLHDBC &hDBC)
-{
+bool Queries::prepareStatements(SQLHDBC &hDBC) {
 
-    for (int i = 0; i < 22; i++) {
-        if (!DbcTools::allocAndPrepareStmt(hDBC, odbc_queries[i],
-                                           DialectStrategy::getInstance()->getTpchQueryStrings()[i])) {
-            Log::l2() << Log::tm() << "-prepare statements failed\n";
-            return 0;
-        }
-    }
-    Log::l1() << Log::tm() << "-prepare statements succeeded\n";
-    return 1;
+  for (int i = 0; i < 22; i++) {
+	if (!DbcTools::allocAndPrepareStmt(hDBC, odbc_queries[i],
+									   DialectStrategy::getInstance()->getTpchQueryStrings()[i])) {
+	  Log::l2() << Log::tm() << "-prepare statements failed\n";
+	  return 0;
+	}
+  }
+  Log::l1() << Log::tm() << "-prepare statements succeeded\n";
+  return 1;
 }
 
-bool Queries::executeTPCH(int &i)
-{
+bool Queries::executeTPCH(int &i) {
 
-    if (DbcTools::resetStatement(odbc_queries[i - 1])) {
-        return DbcTools::executePreparedStatement(odbc_queries[i - 1]);
-    }
-    return 0;
+  if (DbcTools::resetStatement(odbc_queries[i - 1])) {
+	return DbcTools::executePreparedStatement(odbc_queries[i - 1]);
+  }
+  return 0;
 }

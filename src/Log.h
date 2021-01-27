@@ -21,38 +21,34 @@ limitations under the License.
 #include <string>
 #include <iostream>
 
-class LogTime
-{
+class LogTime {
 
 };
 
-class Log1
-{
+class Log1 {
 
 };
 
-class Log2
-{
+class Log2 {
 
 };
 
-class Log
-{
+class Log {
 
 private:
-    static LogTime lt;
-    static Log1 log1;
-    static Log2 log2;
-    static std::ofstream logStream;
+  static LogTime lt;
+  static Log1 log1;
+  static Log2 log2;
+  static std::ofstream logStream;
 
 public:
-    static LogTime &tm();
+  static LogTime &tm();
 
-    static Log1 &l1();
+  static Log1 &l1();
 
-    static Log2 &l2();
+  static Log2 &l2();
 
-    static std::ofstream *getLogStream();
+  static std::ofstream *getLogStream();
 };
 
 Log1 &operator<<(Log1 &l, LogTime &lt);

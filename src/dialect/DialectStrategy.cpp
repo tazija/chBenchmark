@@ -19,9 +19,8 @@ limitations under the License.
 
 Dialect *DialectStrategy::instance = 0;
 
-Dialect *DialectStrategy::getInstance()
-{
-    if (instance == 0)
-        instance = new HanaDialect();
-    return instance;
+Dialect *DialectStrategy::getInstance() {
+  if (instance == 0)
+	instance = new HanaDialect();
+  return instance;
 }

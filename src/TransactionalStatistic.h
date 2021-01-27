@@ -17,19 +17,18 @@ limitations under the License.
 #ifndef TRANSACTIONALSTATISTIC_H
 #define TRANSACTIONALSTATISTIC_H
 
-class TransactionalStatistic
-{
+class TransactionalStatistic {
 
 private:
-    unsigned long long executeTPCCSuccessCount[5];
-    unsigned long long executeTPCCFailCount[5];
+  unsigned long long executeTPCCSuccessCount[5];
+  unsigned long long executeTPCCFailCount[5];
 
 public:
-    TransactionalStatistic();
+  TransactionalStatistic();
 
-    void addResult(unsigned long long &transcationalResults);
+  void addResult(unsigned long long &transcationalResults);
 
-    void executeTPCCSuccess(int transactionNumber, bool success);
+  void executeTPCCSuccess(int transactionNumber, bool success);
 
 };
 

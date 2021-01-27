@@ -19,14 +19,13 @@ limitations under the License.
 
 #include "Dialect.h"
 
-class DialectStrategy
-{
+class DialectStrategy {
 
 private:
-    static Dialect *instance;
+  static Dialect *instance;
 
 public:
-    static Dialect *getInstance();
+  static Dialect *getInstance();
 
 };
 
